@@ -3,7 +3,7 @@ package com.taskflow.taskflow_bff_service.controller;
 
 import com.taskflow.taskflow_bff_service.business.UserService;
 import com.taskflow.taskflow_bff_service.business.dto.in.AddressDTORequest;
-import com.taskflow.taskflow_bff_service.business.dto.in.LoginRequest;
+import com.taskflow.taskflow_bff_service.business.dto.in.LoginDTORequest;
 import com.taskflow.taskflow_bff_service.business.dto.in.PhoneDTORequest;
 import com.taskflow.taskflow_bff_service.business.dto.in.UserDTORequest;
 import com.taskflow.taskflow_bff_service.business.dto.out.AddressDTOResponse;
@@ -39,8 +39,8 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "Login successful")
     @ApiResponse(responseCode = "401", description = "Invalid credentials")
     @ApiResponse(responseCode = "500", description = "Internal server error")
-    public String login(@RequestBody LoginRequest userDTO) {
-        return userService.userlogin(userDTO);
+    public String login(@RequestBody LoginDTORequest userDTO) {
+        return userService.userLogin(userDTO);
     }
 
     @GetMapping

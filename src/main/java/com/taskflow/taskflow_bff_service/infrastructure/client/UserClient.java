@@ -2,7 +2,7 @@ package com.taskflow.taskflow_bff_service.infrastructure.client;
 
 
 import com.taskflow.taskflow_bff_service.business.dto.in.AddressDTORequest;
-import com.taskflow.taskflow_bff_service.business.dto.in.LoginRequest;
+import com.taskflow.taskflow_bff_service.business.dto.in.LoginDTORequest;
 import com.taskflow.taskflow_bff_service.business.dto.in.PhoneDTORequest;
 import com.taskflow.taskflow_bff_service.business.dto.in.UserDTORequest;
 import com.taskflow.taskflow_bff_service.business.dto.out.AddressDTOResponse;
@@ -22,7 +22,7 @@ public interface UserClient {
     UserDTOResponse salveUserDTO(@RequestBody UserDTORequest userDTO);
 
     @PostMapping("/login")
-    String login(@RequestBody LoginRequest userDTO);
+    String login(@RequestBody LoginDTORequest userDTO);
 
 
     @DeleteMapping("/{email}")

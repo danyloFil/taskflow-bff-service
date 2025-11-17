@@ -1,7 +1,6 @@
 package com.taskflow.taskflow_bff_service.business.dto.out;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.taskflow.taskflow_bff_service.infrastructure.enums.NotificationStatusEnum;
 import lombok.*;
 
