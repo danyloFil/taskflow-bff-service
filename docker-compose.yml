@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+  task-scheduler-service:
+    build: ..\task-scheduler-service
+    container_name: task-scheduler-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/database_scheduler
+    depends_on:
+      - mongo
+  taskflow-bff-service:
+    build: .
+    container_name: taskflow-bff-service
+    ports:
+      - "8080:8080"
+    environment:
+      - USER_URL=user-service:8081/user
+      - TASK_SCHEDULER_SERVICE_URL=task-scheduler-service:8082/tasks
+      - NOTIFICATION_URL=notification-service:8083/email
+  user-service:
+    build: ..\user-service
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db_user
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+    depends_on:
+      - postgres
+  notification-service:
+    build: ..\notification-service
+    container_name: notification-service
+    ports:
+      - "8083:8083"
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    restart: no
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: db_user
+    ports:
+      - "5433:5432"
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: no
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: database_scheduler
+networks:
+  default:
+    driver: bridge
